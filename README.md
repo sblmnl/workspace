@@ -1,41 +1,29 @@
 # workspace
 
-A skeleton workspace for multidisciplinary IT and development work, designed to be
-used alongside an AI coding agent (e.g. inside an agentbox container).
+A skeleton workspace designed to be used alongside an AI coding agent (e.g. inside an agentbox container).
 
-The repository only ships the *structure* of the workspace. Everything you put
-into it — code, notes, downloads, experiments — stays local and is never
-committed.
+The repository only ships the *structure* of the workspace.
 
 ## Layout
 
-| Path          | Purpose                                                              |
-| ------------- | -------------------------------------------------------------------- |
-| `projects/`   | Work on longer-term projects, e.g. repositories you keep coming back to. |
-| `resources/`  | Reference material: docs, specs, datasets, assets.                   |
-| `tasks/`      | One-off tasks that don't belong to an ongoing project.               |
-| `tools/`      | Helper scripts and utilities used across projects.                   |
-| `scratch/`    | Throwaway experiments and temporary output.                          |
-| `private/`    | Personal or sensitive files. Hidden from agents (see below).         |
-| `CLAUDE.md`   | Optional agent instructions for this workspace (tracked if present). |
+| Path          | Purpose                                                                  | Visible to agents by default |
+| ------------- | ------------------------------------------------------------------------ | ---------------------------- |
+| `docs/`       | Documents, use it in the same way you use your normal documents folder.  | Y                            |
+| `private/`    | Private folder that is hidden from agents by default.                    | N                            |
+| `projects/`   | Work on longer-term projects, e.g. repositories you keep coming back to. | Y                            |
+| `resources/`  | Reference material: docs, specs, datasets, assets.                       | Y                            |
+| `tasks/`      | One-off tasks that don't belong to an ongoing project.                   | Y                            |
+| `tools/`      | Helper scripts and utilities used across projects.                       | Y                            |
+| `scratch/`    | Throwaway experiments and temporary output.                              | Y                            |
 
-Each directory is kept in git with an empty `.gitkeep` file only; its contents
-are ignored.
+## Quickstart
 
-## How the ignore rules work
-
-`.gitignore` is an allowlist. It starts by ignoring everything:
-
-```gitignore
-**/*
+```bash
+git clone https://github.com/sblmnl/workspace.git ~/workspace
+cd ~/workspace
+rm -rf .git ./**/.gitkeep .gitignore LICENSE README.md
+agentbox init
 ```
-
-and then re-includes just the directory skeleton (`<dir>/` and `<dir>/.gitkeep`)
-plus the top-level files `.agentignore`, `.gitignore`, `CLAUDE.md`, `LICENSE`
-and `README.md`. So a fresh clone gives you the empty folder structure, and
-nothing you add to the workspace is picked up by `git add` by accident.
-
-To ship something new, add an explicit `!` rule for it in `.gitignore`.
 
 ## Agent visibility
 
